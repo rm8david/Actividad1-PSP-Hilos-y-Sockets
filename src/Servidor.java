@@ -42,9 +42,7 @@ public class Servidor {
                  ObjectOutputStream objectOut = new ObjectOutputStream(clienteSocket.getOutputStream());
                  ObjectInputStream objectIn = new ObjectInputStream(clienteSocket.getInputStream())
             )
-
             {
-
                 int opcion = 0;
                 do {
                     opcion = dataIn.readInt();
@@ -79,26 +77,26 @@ public class Servidor {
                             libros.add(addLibro);
                             System.out.println("Se ha añadido el libro: "+addLibro.toString());
                     }
-
                 } while (opcion != 5);
-
                 System.out.println("Cliente desconectado");
-
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Error al manejar el cliente: " + e.getMessage());
+                if(e.getMessage()!= null){
+                    System.out.println("Error al manejar el cliente: " + e.getMessage());
+                }else{
+                    System.out.println("Cliente desconectado ");
+                }
             }
         }
 
         private Libro buscarAutor(String libroAutor) {
             for (Libro l : libros) {
-                if (l.getAutor().equals(libroAutor)) {
+                if (l.getAutor().toLowerCase().contains(libroAutor.toLowerCase())) {
                     return l;
                 }
             }
             return null;
         }
 
-        // Métodos para las operaciones del servidor
         private static synchronized void añadirLibro(Libro libro) {
             libros.add(libro);
         }
