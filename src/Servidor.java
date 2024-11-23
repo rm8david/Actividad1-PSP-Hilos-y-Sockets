@@ -27,7 +27,7 @@ public class Servidor {
         }
     }
 
-    // Clase interna que maneja las conexiones del cliente
+
     static class ClientHandler implements Runnable {
         private Socket clienteSocket;
 
